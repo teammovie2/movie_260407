@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, url_for, redirect
 
-bp = Blueprint('main',__name__, url_prefix='/')
+
+bp = Blueprint('main', __name__, url_prefix='/')
 
 @bp.route('/')
 def index():
-    return render_template('event.html')
+    return redirect(url_for('main'))
