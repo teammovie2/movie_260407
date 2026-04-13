@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+#storepage {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 /* 팝콘 배너 */
 .inner_banner {
     background-color: black;
@@ -38,6 +42,7 @@
 }
 
 /* 팝콘 배너 이후 상품 진열 테이블 */
+/* 콤보상품 코너 */
 
 .store_pro {
     width:1207px;
@@ -46,28 +51,297 @@
     padding-top: 30px;
 }
 
-
 .store_pro h3 {
+    margin-top: 10px;
     position: relative;
     padding: 20px 15px;
     font-size: 16px;
 }
 
-.ticket {
-    display: flex;
-    gap: 20px;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-
-.ticket a {
+.store_pro a {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.ticket img {    
-    width: 360px;
-
+.store_pro h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
 }
 
+.store_pro p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+
+.store_pro span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.store_pro em {
+    font-style: normal;
+    font-size: 16px;
+    font-weight: normal;
+    color: gray;
+}
+
+.ticket {
+    display: flex;
+    gap: 50px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.ticket img {    
+    width: 360px;
+}
+
+.snack_drink {
+    display: flex;
+    gap: 120px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.normal {
+    cursor: pointer;
+}
+
+.vip {
+    cursor: pointer;
+}
+
+.snack_drink img {    
+    width: 310px;
+}
+
+.bestcom {
+    cursor: pointer;
+}
+
+.singcom {
+    cursor: pointer;
+}
+
+.snacks {
+    cursor: pointer;
+}
+
+/* 단일상품 코너 */
+
+.Single_pro {
+    width:1207px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.Single_pro h3 {
+    margin-top: 10px;
+    position: relative;
+    padding: 20px 15px;
+    font-size: 16px;
+}
+
+.Single_pro a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Single_pro h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+
+.Single_pro p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+
+.Single_pro span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.Single_pro em {
+    font-style: normal;
+    font-size: 16px;
+    font-weight: normal;
+    color: gray;
+}
+
+.Single_pro {
+    display: flex;
+    gap: 140px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.Single_pro img {    
+    width: 300px;
+}
+
+.popcorn_L {
+    cursor: pointer;
+}
+
+.popcorn_M {
+    cursor: pointer;
+}
+
+.drink {
+    cursor: pointer;
+}
+
+/* 시네마 굿즈 */
+/* 진격의 거인 */
+
+.titan_merch {
+    width:1207px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.titan_merch h3 {
+    margin-top: 10px;
+    position: relative;
+    padding: 20px 15px;
+    font-size: 16px;
+}
+
+.titan_merch a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titan_merch h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+
+.titan_merch p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+
+.titan_merch span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.titan_merch em {
+    font-style: normal;
+    font-size: 16px;
+    font-weight: normal;
+    color: gray;
+}
+
+.titan_merch {
+    display: flex;
+    gap: 140px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.titan_merch img {    
+    width: 300px;
+}
+
+.jin_eren {
+    cursor: pointer;
+}
+
+.jin_mikasa {
+    cursor: pointer;
+}
+
+.jin_levi {
+    cursor: pointer;
+}
+
+/* 체인소 맨 */
+
+.chain_merch {
+    width:1207px;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 30px;
+}
+
+.chain_merch h3 {
+    margin-top: 10px;    
+    position: relative;
+    padding: 20px 15px;
+    font-size: 16px;
+}
+
+.chain_merch a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chain_merch h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
+}
+
+.chain_merch p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+}
+
+.chain_merch span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.chain_merch em {
+    font-style: normal;
+    font-size: 16px;
+    font-weight: normal;
+    color: gray;
+}
+
+.chain_merch {
+    display: flex;
+    gap: 140px;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.chain_merch img {    
+    width: 300px;
+}
+
+.chain_denji {
+    cursor: pointer;
+}
+
+.chain_makima {
+    cursor: pointer;
+}
+
+.chain_reje {
+    cursor: pointer;
+}
