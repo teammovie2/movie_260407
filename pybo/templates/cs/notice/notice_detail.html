@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    공지사항 - 필름아티크
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="section2">
+        <div class="container my-3">
+            <h2 class="border-bottom py-2">{{ notice_detail.subject }}</h2>
+
+            <!--공지사항-->
+            <table class="customer">
+                <thead>
+                <tr class="table-secondary">
+                    <th>영화관</th>
+                    <th>제목</th>
+                    <th>등록일</th>
+                </tr>
+
+                </thead>
+
+                <tbody>
+                <tr class="table-light">
+                    <td>전체</td>
+                    <td>씨네Q 구미봉곡점 4월 휴무일 안내</td>
+                    <td>
+                        {{ notice.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        const delete_btns = document.querySelectorAll('.delete');
+        delete_btns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                if (confirm('정말로 삭제 하시겠습니까?')) {
+                    location.href = this.dataset.uri;
+                }
+            })
+        })
+    </script>
+{% endblock %}

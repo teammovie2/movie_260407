@@ -58,7 +58,8 @@
 }
 
 .section1 .container {
-    width: 1206px; height: 1400px;
+    width: 1206px; height: auto;
+    min-height: 1400px;
     padding-left: 0;
     background-color: #eaeaea;
     display: flex;
@@ -77,7 +78,5 @@
 .section1 table .table-secondary{
     text-align: center;
 }
-.section1 .fixed-bottom{
-    font-weight: bold;
-}
+
 
