@@ -5,20 +5,22 @@ fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=ko
   .then(data => {
     const wrapper = document.querySelector(".posterSwiper .swiper-wrapper");
 
-    wrapper.innerHTML = "";
+    // 기존 slide들 가져오기
+    const slides = wrapper.querySelectorAll(".swiper-slide");
 
-    data.results.forEach(movie => {
-      if (movie.poster_path) {
-        const slide = document.createElement("div");
-        slide.classList.add("swiper-slide");
+    data.results.forEach((movie, index) => {
+      if (movie.poster_path && slides[index]) {
 
+        const slide = slides[index];
+
+        // img 생성
         const img = document.createElement("img");
         img.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
-        img.style.width = "100%";
 
-        slide.appendChild(img);
-        wrapper.appendChild(slide);
+        // 🔥 txtbox보다 위에 넣기
+        slide.insertBefore(img, slide.firstChild);
       }
     });
+
     swiper.update();
   });

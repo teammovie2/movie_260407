@@ -1,0 +1,28 @@
+#movie_list{
+    width: 1207px;
+    height: 100%;
+    margin: 0 auto;
+}
+#movie_list h3{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#movie_list .movie{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: flex-start;
+    position: relative;
+}
+.movie .box img{
+    width: 250px;
+    border-radius: 5px;
+}
+.movie .box h4{
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.movie .box p{
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
