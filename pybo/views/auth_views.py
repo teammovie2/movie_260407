@@ -11,9 +11,16 @@ bp=Blueprint('auth',__name__, url_prefix='/auth')
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = UserCreateForm()
+
     if request.method == 'POST' and form.validate_on_submit():
-        user = User.query.filter_by(userid=form.userid.data).first()
-        if not user:
+        existing_user = User.query.filter_by(userid=form.userid.data).first()
+        existing_email = User.query.filter_by(email=form.email.data).first()
+
+        if existing_user:
+            flash('이미 존재하는 아이디입니다.')
+        elif existing_email:
+            flash('이미 존재하는 이메일입니다.')
+        else:
             user = User(
                 userid=form.userid.data,
                 username=form.username.data,
@@ -25,11 +32,12 @@ def signup():
             )
             db.session.add(user)
             db.session.commit()
+
             return redirect(url_for('main.index'))
         else:
             flash('이미 존재하는 아이디입니다.')
 
-    return  render_template('auth/signup.html', form=form)
+    return render_template('auth/signup.html', form=form)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
