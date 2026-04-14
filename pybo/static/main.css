@@ -174,7 +174,7 @@ nav .topnav li:last-child::after {
 
 
 .poster .swiper-slide {
-    width: 226px;
+    width: 100%;
     text-align: center;
     font-size: 18px;
     display: flex;
@@ -183,10 +183,39 @@ nav .topnav li:last-child::after {
     overflow: visible;
 }
 .poster .swiper-slide img {
-    width: 226px;
-    height: 334px;
+    width: 100%;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.poster .swiper-slide:hover{
+    cursor: pointer;
+
+}
+.poster .swiper-slide:hover .txtbox{
+
+    opacity: 1;
+}
+
+.poster .txtbox{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 1s;
+}
+.poster .txtbox a{
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin: 5px;
 }
 
 .poster .swiper-button-next, .poster .swiper-button-prev{
