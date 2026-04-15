@@ -1,101 +1,253 @@
 @charset "utf-8";
 
-/* 기본 폰트 설정 */
-
+/* =========================
+   기본 설정
+========================= */
 #contents {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 1207px;
-    height: auto;
     margin: 0 auto;
-    padding-top: 30px;
+    padding-top: 20px;
+    font-size: 15px;
 }
 
-/* 상품상세정보 */
-/* 상품사진 */
-
+/* =========================
+   레이아웃
+========================= */
 .pro_detail {
-    position: relative;
     display: flex;
-    
+    gap: 60px;
+    /* margin 대신 gap 사용 */
 }
 
-
-
-.pro_detail .main_img {
-    position: relative;
-    margin-bottom: 20px;
+/* =========================
+   상품 이미지
+========================= */
+.main_img {
+    margin-top: 60px;
     text-align: center;
 }
 
-.pro_detail .main_img img {
+.main_img img {
     width: 670px;
-    display: flex;
-    justify-content: center;
 }
 
-/* 상품정보 */
-
+/* =========================
+   상품 정보 영역
+========================= */
 .pro_info {
-    margin-left: 100px;
+    width: 430px;
 }
 
-/* 상품 상세 정보 */
-
-.pro_table {    
-    height: 574px;
-    margin-bottom: 30px;
-    text-align: left;
-    display: flex;
-    justify-content: flex-start;
-    
-    border-spacing: 0;
+/* =========================
+   테이블
+========================= */
+.pro_table {
+    width: 100%;
     border-collapse: collapse;
-    border: 0
+    table-layout: fixed;
+    margin-bottom: 80px;
 }
 
 .pro_table tr {
-    height: 80px;    
-    border-bottom: 1px solid #333;    
+    border-bottom: 1px solid #eee;
 }
 
-
-
-.pro_table .title {
-    width: auto;
+.pro_table th.title {
     font-size: 30px;
-    font-weight: normal;
+    font-weight: 400;
+    padding: 10px 0;
 }
 
-.pro_table span {    
-    padding-left: 200px;
+.pro_table td {
+    padding: 12px 0;
+}
+
+/* 좌/우 */
+.left {
+    font-weight: 500;
+}
+
+.right {
+    text-align: left;
+}
+
+/* 가격 */
+.tit_pirce {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    /* 🔥 핵심 수정 */
     align-items: center;
-    font-size: 25px;
+    font-size: 28px;
+    font-weight: 600;
 }
 
-.pro_table em {
+.tit_pirce em {
     font-style: normal;
-    font-size: 0.833em;
-    font-weight: normal;
-    color: gray;
+    font-size: 21px;
+    margin-left: 4px;
 }
 
-/* 상세 정보 아래 구매수량 */
+/* select */
+#select {
+    width: 180px;
+    height: 30px;
+}
 
+/* =========================
+   수량 박스
+========================= */
 .box_num {
-    width: auto;
-    height: 70px;
-    margin-top: -60px;
     display: flex;
-    justify-content: center;    
-    border: 1px solid #333;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    margin-top: -40px;
+
+    border: 1px solid #414141;
     border-radius: 8px;
 }
 
+/* 버튼 공통 */
 .box_num button {
+    width: 40px;
+    height: 100%;
+    border: none;
+    background: #fff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* 좌우 버튼 */
+.mins {
+    border-right: 1px solid #414141;
+    border-radius: 8px 0 0 8px;
+    font-size: 26px;
+}
+
+.plus {
+    border-left: 1px solid #414141;
+    border-radius: 0 8px 8px 0;
+}
+
+/* 숫자 */
+.basic_num {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+/* =========================
+   총 금액
+========================= */
+.last_price {
+    text-align: right;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.end_price {
+    margin-left: 20px;
+    font-size: 30px;
+    color: red;
+}
+
+.end_price em {
+    font-style: normal;
+    font-size: 24px;
+    margin-left: 2px;
+}
+
+/* =========================
+   버튼 영역
+========================= */
+.present_buy {
+    display: flex;
+    gap: 6px;
+}
+
+/* 버튼 공통 */
+.present_buy button {
+    flex: 1;
+    height: 50px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 선물 */
+.presents {
+    background: #414141;
+    color: #fff;
+    border: 1px solid #414141;
+}
+
+/* 구매 */
+.buy {
+    background: red;
+    color: #fff;
+    border: 1px solid red;
+}
+
+/* =========================
+   disabled 상태
+========================= */
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ========================
+    사용방법 / 유의사항
+===========================*/
+
+.howtouse {
+    height: 800px;
+    margin-top: 100px;
+}
+
+#tab {
+    width: 1207px;
+    height: 350px;
+    margin: 0 auto;
+    position: relative;    
+}
+
+.tab_menu {
     display: flex;
     justify-content: center;
-    align-content: space-between;
-    vertical-align: middle;
+    position: relative;
+    border-bottom: 1px solid #eee;
+    z-index: 2;
+}
+
+.tab_menu li {
+    width: 50%;
+    line-height: 50px;
+    text-align: center;    
+    cursor: pointer;
+    font-size: 18px;
+    border-bottom: 2px solid transparent;
+}
+
+.tab_menu li:last-child {
+    border-right: none;
+}
+
+.tab_menu .active {    
+    background-color: #fff;
+    border-bottom: 3px solid #414141;
+    border-bottom: 3px solid #000;
+    font-weight: 700;
+}
+
+.tabcontent {
+    width: 100%;
+    height: 300px;    
+    position: absolute;
+    left: 0;
+    bottom: 0.5px;
+    background: #fff;
+    border-top: 1px solid #aaa;
+    margin-top: 5px;
+    font-size: 15px;
 }
