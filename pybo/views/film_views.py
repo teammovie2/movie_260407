@@ -18,6 +18,10 @@ def store_ticket():
 def movie_list():
     return render_template('movie_list.html')
 
+@bp.route('/movie/list/info/<int:movie_id>', methods=['GET'])
+def movie_info(movie_id):
+    return render_template('movie_info/movie_info_1.html', movie_id=movie_id)
+
 @bp.route('/booking', methods=['GET','POST'])
 def booking():
     return render_template('booking.html')

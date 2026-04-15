@@ -212,6 +212,7 @@ nav .topnav li:last-child::after {
 .poster .txtbox a{
     color: #fff;
     border: 1px solid #fff;
+    border-radius: 5px;
     padding: 5px 10px;
     margin: 5px;
 }

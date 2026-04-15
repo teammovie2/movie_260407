@@ -23,7 +23,7 @@ fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&languag
 
         <div class="txtbox">
             <a href="#">예매하기</a>
-            <a href="/movie/${movie.id}">상세보기</a>
+            <a href="${movieInfoUrl}/${movie.id}">상세보기</a>
         </div>
       `;
     });

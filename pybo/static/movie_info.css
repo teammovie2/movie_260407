@@ -1,20 +1,21 @@
 .movie_info {
     width: 100%;
-    height: 1000px;
+    height: auto;
     background-color: #f9f9f9;
 }
 
-.container {
-    width: 100%;
+.container_top {
+    width: 1207px;
     height: 100%;
-    padding: 66px 75px;
+    margin: 0 auto;
+    padding: 66px 75px 0 75px;
     background-color: #fff;
     display: flex;
 }
 
 .inner_left {
     width: 202px;
-    height: auto;
+    height: 700px;
     margin-right: 45px ;
 }
 
@@ -25,7 +26,7 @@
 
 .inner_right {
     width: 885px;
-    height: auto;
+    height: 700px;
 }
 
 .movie_title {
@@ -35,25 +36,26 @@
     align-items: center;
     padding-left: 20px;
     border-bottom: 3px solid black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .movie_detail {
     width: 100%;
-    height: 303px;
+    height: 270px;
     display: flex;
+    padding-top: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border-bottom: 3px solid #eaeaea
 }
 
 .movie_detail .detail_left {
-    width: 100px;
+    width: 90px;
     height: 100%;
-    background-color: gold;
 }
 
 .movie_detail .detail_right {
-    width: 785px;
+    width: 795px;
     height: 100%;
-    background-color: aqua;
 }
 
 .movie_story {
@@ -69,10 +71,45 @@
 
 .story_title h4 {
     padding: 50px 0 0 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .story_content {
     width: 100%;
     height: auto;
-    background-color: blueviolet;
+    font-size: 20px;
+    padding-top: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.container_bottom {
+    width: 1207px;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.container_bottom h4 {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.still_img {
+  gap: 20px;
+  padding-bottom: 30px;
+}
+
+.still_img img {
+  width: 398px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: all 0.3s;
+  margin-bottom: 10px;
+}
+
+.still_img img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
