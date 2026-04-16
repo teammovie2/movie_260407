@@ -2,7 +2,7 @@
 {% block title %}예매 - 필름아티크{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{{ url_for('static', filename='booking.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='person_seat.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -11,8 +11,8 @@
   <!-- 좌측 네비 -->
   <div class="booking_menu">
     <ul class="d-flex flex-column text-center">
-      <li class="active"><strong>01<br>상영시간</strong></li>
-      <li><strong>02<br>인원/좌석</strong></li>
+      <li><strong>01<br>상영시간</strong></li>
+      <li class="active"><strong>02<br>인원/좌석</strong></li>
       <li><strong>03<br>결제</strong></li>
       <li><strong>04<br>결제완료</strong></li>
     </ul>
@@ -114,7 +114,7 @@
             <ul></ul>
           </div>
           <div class="btnToSeats">
-            <a id="btnSeats" href="{{ url_for('film.person_seat') }}">좌석선택</a>
+            <a id="btnSeats" href="#">좌석선택</a>
           </div>
         </div>
       </div>

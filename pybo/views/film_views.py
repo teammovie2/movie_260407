@@ -152,3 +152,7 @@ def movie_info(movie_id):
 def booking():
     return render_template('booking.html')
 
+@bp.route('/person/seat', methods=['GET','POST'])
+def person_seat():
+    return render_template('person_seat.html')
+
