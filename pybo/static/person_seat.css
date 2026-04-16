@@ -32,6 +32,10 @@
   color: #fff;
   opacity: 1;
 }
+.booking_menu > ul > li:first-child{
+    color: #fff;
+    background-color: #666;
+}
 .booking_menu ul li strong{
     font-size: 15px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -242,10 +246,6 @@
 .week {
     font-size: 12px;
 }
-/* .time_btn.few {
-  border-color: red;
-  color: red;
-} */
 
 /* 시간선택 */
 .time ul {
@@ -291,3 +291,4 @@
     font-size: 20px;
     color: #fff;
 }
+

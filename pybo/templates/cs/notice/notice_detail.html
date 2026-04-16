@@ -19,14 +19,24 @@
 
                     <ul class="nav nav-underline">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">QNA</a>
+                            <a class="nav-link active" href="{{ url_for("cs.faq_list") }}">FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ url_for("cs.notice_list") }}">공지사항</a>
+                            <a class="nav-link active" aria-current="page"
+                               href="{{ url_for("cs.notice_list") }}">공지사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">1:1문의</a>
+                            <a class="nav-link active" href="#">1:1문의</a>
                         </li>
+                        {#                        <div class="middle-bar">#}
+                        {#                            <nav id="nav">#}
+                        {#                                <ul class="navi-bar">#}
+                        {#                                    <li data-target="#sub_tit1"><a href="#sub_tit1">관람권</a></li>#}
+                        {#                                    <li data-target="#sub_tit2"><a href="#sub_tit2">스낵음료</a></li>#}
+                        {#                                    <li data-target="#sub_tit3"><a href="#sub_tit3">시네마굿즈</a></li>#}
+                        {#                                </ul>#}
+                        {#                            </nav>#}
+                        {#                        </div>#}
                     </ul>
                 </div>
             </div>
@@ -51,8 +61,8 @@
 
                 <tbody>
                 <tr>
-                    <td class="table-light">{{notice.theater}}</td>
-                    <td class="table-light">{{notice.title}}</td>
+                    <td class="table-light">{{ notice.theater }}</td>
+                    <td class="table-light">{{ notice.title }}</td>
                     <td class="table-light">
                         {{ notice.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}
                     </td>
@@ -62,12 +72,44 @@
             <div class="answer1">
                 <pre><p style="white-space: pre-wrap">{{ notice.content }}</p></pre>
             </div>
-            <div class="recent_btn">
-                최근: 씨네Q 구미봉점 4월 휴무일 안내
-            </div>
-            <div class="forward_btn">
-                이전: 씨네Q 구미봉점 3월 휴무일 안내
-            </div>
+            <nav>
+                <ul>
+
+                    <!-- 이전 글 -->
+                    {% if prev_notice %}
+                        <li>
+                            <a href="{{ url_for('cs.notice_detail', notice_id=prev_notice.id) }}">
+                                이전 : {{ prev_notice.title }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <span>이전</span>
+                        </li>
+                    {% endif %}
+
+
+                    <!-- 다음 글 -->
+                    {% if next_notice %}
+                        <li>
+                            <a href="{{ url_for('cs.notice_detail', notice_id=next_notice.id) }}">
+                                다음 : {{ next_notice.title }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="disabled">
+                            <span>다음</span>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {#            <div class="recent_btn">#}
+            {#                {{ notice.title }}#}
+            {#            </div>#}
+            {#            <div class="forward_btn">#}
+            {#                {{ notice.title }}#}
+            {#            </div>#}
 
             <div class="d-grid gap-2 col-1 mx-auto">
                 <button class="inventory" type="button">

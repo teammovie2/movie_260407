@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, abort
-import requests
+import requests, base64
 
 bp = Blueprint('film', __name__, url_prefix='/film')
 
@@ -75,6 +75,26 @@ def store_chain_denji():
 def store_chain_makima():
     return render_template('store_chain_makima.html')
 
+
+@bp.route('/store/chain_reje', methods=['GET'])
+def store_chain_reje():
+    return render_template('store_chain_reje.html')
+
+# 귀멸의 칼날
+
+@bp.route('/store/ds_holo_buttonbadge', methods=['GET'])
+def store_ds_holo_buttonbadge():
+    return render_template('store_ds_holo_buttonbadge.html')
+
+@bp.route('/store/ds_char_buttonbadge', methods=['GET'])
+def store_ds_char_buttonbadge():
+    return render_template('store_ds_char_buttonbadge.html')
+
+@bp.route('/store/ds_grap_buttonbadge', methods=['GET'])
+def store_ds_grap_buttonbadge():
+    return render_template('store_ds_grap_buttonbadge.html')
+
+# 스토어 결제
 @bp.route('/store/pay', methods=['GET'])
 def store_pay():
     product_id = request.args.get('product_id', type=int)
@@ -109,37 +129,6 @@ def store_pay():
 
     return render_template('store_pay.html', product=product)
 
-@bp.route('/confirm', methods=['POST'])
-def confirm():
-    data = request.json
-
-    url = "https://api.tosspayments.com/v1/payments/confirm"
-
-    headers = {
-        "Authorization": "Basic YOUR_SECRET_KEY"
-    }
-
-    body = {
-        "paymentKey": data['paymentKey'],
-        "orderId": data['orderId'],
-        "amount": data['amount']
-    }
-
-    res = requests.post(url, json=body, headers=headers)
-    return res.json()
-
-@bp.route('/store/pay/success')
-def success():
-    paymentKey = request.args.get('paymentKey')
-    orderId = request.args.get('orderId')
-    amount = request.args.get('amount')
-
-    return f"결제 성공! {orderId}"
-
-@bp.route('/store/pay/fail')
-def fail():
-    return "결제 실패"
-
 @bp.route('/movie/list', methods=['GET'])
 def movie_list():
     return render_template('movie_list.html')
@@ -151,4 +140,8 @@ def movie_info(movie_id):
 @bp.route('/booking', methods=['GET','POST'])
 def booking():
     return render_template('booking.html')
+
+@bp.route('/person/seat', methods=['GET','POST'])
+def person_seat():
+    return render_template('person_seat.html')
 

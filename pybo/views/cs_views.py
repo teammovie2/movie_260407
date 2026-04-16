@@ -18,7 +18,7 @@ def notice_list():
 
     notice_list = Notice.query.order_by(Notice.create_date.desc())
 
-    notice_list = notice_list.paginate(page=page, per_page=10)  # 한페이지에 보여야할 게시물
+    notice_list = notice_list.paginate(page=page, per_page=15)  # 한페이지에 보여야할 게시물
 
     return render_template("cs/notice_list.html", notice_list=notice_list)
 
@@ -26,4 +26,11 @@ def notice_list():
 @bp.route("/notice/detail/<int:notice_id>")
 def notice_detail(notice_id):
     notice_detail = Notice.query.get(notice_id)
-    return render_template("cs/notice/notice_detail.html", notice=notice_detail)
+    prev_notice = Notice.query.get(notice_id - 1)
+    next_notice = Notice.query.get(notice_id + 1)
+    return render_template("cs/notice/notice_detail.html", notice=notice_detail, prev_notice=prev_notice, next_notice=next_notice)
+
+@bp.route("/faq/list")
+def faq_list():
+    # faq = Notice.query.get(notice_id)
+    return render_template("cs/faq/faq.html")
