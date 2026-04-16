@@ -3,6 +3,7 @@ from datetime import datetime
 from pybo import create_app, db
 from pybo.models import Notice
 
+
 def insert_test_data(n=12):
     """테스트용 질문 데이터 n개 생성"""
     app = create_app()  # Flask 컨텍스트 가 필요
@@ -15,10 +16,11 @@ def insert_test_data(n=12):
                 for theater in theaters:
                     q = Notice(
                         theater=theater,
-                        title=f'씨네Q {theater} {year}년 {i + 1}월 휴무일 안내',
-                        content=f'''안녕하세요, 씨네Q입니다. 먼저 씨네Q {theater}을 이용해주시는 고객님들께 항상 깊은 감사 드립니다.
+                        title=f'{theater} {year}년 {i + 1}월 휴무일 안내',
+                        content=f'''안녕하세요, 필름아티크입니다. 
+먼저 필름아티크 {theater}을 이용해주시는 고객님들께 항상 깊은 감사 드립니다.
                         
-씨네Q {theater}은 G7스퀘어 건물 전체 의무 휴업일에 따라
+필름아티크 {theater}은 G7스퀘어 건물 전체 의무 휴업일에 따라
 {i+1}월 9일(월)과 {i + 1}월 23일(월) 휴관합니다.
 그 외 모든 요일은 정상 영업 예정이오니 이용에 참고 부탁 드립니다.
                               

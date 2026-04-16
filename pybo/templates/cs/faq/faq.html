@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    공지사항 - 필름아티크
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='question_list.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="header">
+        <div class="container">
+            <div class="menu">
+                <h3 id="sub_title">고객센터</h3>
+                <div class="service">
+
+                    <ul class="nav nav-underline">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for("cs.faq_list") }}">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                               href="{{ url_for("cs.notice_list") }}">공지사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">1:1문의</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section3">
+        <div class="container">
+            <div id="explain">
+
+            <p>
+                <img src="../static/img/info_icon.png" alt="info_icon">
+                자주 찾는 질문 전체가 기본으로 표시됩니다. 원하는 구분의 목록만 보려면 아래 메뉴에서 선택해주세요.
+            </p>
+            </div>
+            
+            <table class="table table">
+                <thead>
+                <tr class="table-secondary">
+                    <th>구분</th>
+                    <th>질문</th>
+                </tr>
+
+                </thead>
+                <tbody>
+                    <td class="table-light">영화관 이용</td>
+                    <td class="table-light">굿즈 증정 기준이 어떻게 되나요?</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='notice_list.js') }}"></script>
+{% endblock %}
