@@ -4,6 +4,7 @@ from idlelib import query
 
 from flask import Blueprint, render_template, request, redirect, url_for
 
+from pybo.models import Privacy
 from pybo.models import Faq
 from pybo import db
 from pybo.forms import NoticeForm, AnswerForm
@@ -33,15 +34,16 @@ def notice_detail(notice_id):
 
 @bp.route("/faq/list")
 def faq_list():
-    faq_list = Faq.query.all()
+    page = request.args.get('page', type=int, default=1)
+    faq_list = Faq.query.order_by(Faq.create_date.desc())
+    faq_list = faq_list.paginate(page=page, per_page=10)
     print(faq_list)
-    return render_template("cs/faq/faq.html" , faq_list=faq_list)
+    return render_template("cs/faq/faq.html", faq_list=faq_list)
 
-# 상세 페이지
-# @bp.route("/faq/detail/<int:faq_id>")
-# def faq_detail(faq_id):
-#     faq = Faq.query.get(faq_id)
-#
-#     return render_template("cs/faq/faq.html", faq=faq)
+@bp.route("/privacy/")
+def privacy_list():
+    # page = request.args.get('page', type=int, default=1)
+    privacy_list = Privacy.query.all()
+    return render_template("cs/review/review.html", privacy_list=privacy_list)
 
 

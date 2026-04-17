@@ -1,0 +1,36 @@
+.section4 {
+    margin-bottom: 130px;
+}
+
+.section4 .container {
+    width: 1207px; height: auto;
+    min-height: 1200px;
+    padding-left: 0;
+    background-color: #eaeaea;
+    align-items: center;
+    margin-bottom: 145px;
+    padding: 50px 0;
+}
+
+.outside{
+    height: 1100px;
+}
+.section4 .container .outside table{
+    width: 1062px;
+    margin: 0 auto 40px auto;
+    font-size: 20px;
+}
+
+
+
+.section4 table .table-secondary{
+    text-align: center;
+}
+
+.section4 .container td {
+    height: 70px;
+    text-align: center;
+    align-content: center;
+    color: #666;
+    font-size: 15px;
+}

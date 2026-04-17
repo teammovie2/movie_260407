@@ -27,6 +27,7 @@ def insert_test_data(n=12):
 ※ 의무 휴업 기준 : 제 2018-243호 대형마트 및 준대규모점포 의무휴업일 지정 및 영업시간 제한 고시
                 
 감사합니다.''',
+
                         create_date=datetime.now()
                     )
                     db.session.add(q)

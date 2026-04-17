@@ -27,7 +27,7 @@
                                href="{{ url_for("cs.notice_list") }}">공지사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">1:1문의</a>
+                            <a class="nav-link active" href="{{ url_for("cs.privacy_list") }}">1:1문의</a>
                         </li>
                     </ul>
                 </div>
@@ -54,25 +54,73 @@
                 <option value="5">할인혜택</option>
             </select>
 
-            <table class="table table">
-                <thead>
-                <tr class="table-secondary">
-                    <th>구분</th>
-                    <th>질문</th>
-                </tr>
-
-                </thead>
-                <tbody>
-
-                {% for faq in faq_list %}
-                    <tr>
-                     <td class="table-light">{{ faq.kind }}</td>
-                     <td class="table-light">{{ faq.question }}</td>
+            <div class="outside">
+                <table class="table">
+                    <thead>
+                    <tr class="table-secondary">
+                        <th>구분</th>
+                        <th>질문</th>
+                        <th>등록일</th>
                     </tr>
-                {% endfor %}
 
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+
+                    {% for faq in faq_list %}
+                        <tr>
+                            <td class="table-light">{{ faq.kind }}</td>
+                            <td class="table-light">{{ faq.question }}</td>
+                            <td>{{ faq.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="...">
+                <ul class="pagination justify-content-center">
+                    <!--이전버튼-->
+                    {% if faq_list.has_prev %}
+                        <li class="page-item">
+                            <a href="?page={{ faq_list.prev_num }}" class="page-link">이전</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="javascript:void(0)">이전</a>
+                        </li>
+                    {% endif %}
+                    <!--페이지 번호-->
+                    {% for page_num in faq_list.iter_pages() %}
+                        {% if page_num %}
+                            {% if page_num != faq_list.page %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="javascript:void(0)">{{ page_num }}</a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li class="disabled">
+                                <a class="page-link" href="javascript:void(0)">...</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <!--다음페이지-->
+                    {% if faq_list.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ faq_list.next_num }}">다음</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="javascript:void(0)">다음</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+
         </div>
     </div>
 

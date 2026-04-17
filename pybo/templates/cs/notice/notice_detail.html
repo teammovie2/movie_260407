@@ -26,7 +26,7 @@
                                href="{{ url_for("cs.notice_list") }}">공지사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">1:1문의</a>
+                            <a class="nav-link active" href="{{ url_for("cs.privacy_list") }}">1:1문의</a>
                         </li>
                         {#                        <div class="middle-bar">#}
                         {#                            <nav id="nav">#}
@@ -76,19 +76,25 @@
                 <ul>
 
                     <!-- 이전 글 -->
-                    {% if prev_notice %}
-                        <li>
-                            <a href="{{ url_for('cs.notice_detail', notice_id=prev_notice.id) }}">
-                                이전 : {{ prev_notice.title }}
+                    <div class="recent_btn">
+                        {% if prev_notice %}
+
+                            <li>
+                                <a href="{{ url_for('cs.notice_detail', notice_id=prev_notice.id) }}">
+                                    이전 : {{ prev_notice.title }}
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="disabled">
+                            <a class="page-link" tabindex="-1" aria-disabled="true" href="javascript:void(0)">
+                                 이전
                             </a>
-                        </li>
-                    {% else %}
-                        <li class="disabled">
-                            <span>이전</span>
-                        </li>
-                    {% endif %}
 
+                            </li>
+                        {% endif %}
+                    </div>
 
+                    <div class="forward_btn">
                     <!-- 다음 글 -->
                     {% if next_notice %}
                         <li>
@@ -98,18 +104,16 @@
                         </li>
                     {% else %}
                         <li class="disabled">
-                            <span>다음</span>
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="javascript:void(0)">
+                            다음
+                        </a>
                         </li>
                     {% endif %}
+                    </div>
 
                 </ul>
             </nav>
-            {#            <div class="recent_btn">#}
-            {#                {{ notice.title }}#}
-            {#            </div>#}
-            {#            <div class="forward_btn">#}
-            {#                {{ notice.title }}#}
-            {#            </div>#}
+
 
             <div class="d-grid gap-2 col-1 mx-auto">
                 <button class="inventory" type="button">

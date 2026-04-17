@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    공지사항 - 필름아티크
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='question_list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='review.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <div class="header">
+        <div class="container">
+            <div class="menu">
+                <h3 id="sub_title">고객센터</h3>
+                <div class="service">
+
+                    <ul class="nav nav-underline">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for("cs.faq_list") }}">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page"
+                               href="{{ url_for("cs.notice_list") }}">공지사항</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ url_for("cs.privacy_list") }}">1:1문의</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section4">
+        <div class="container">
+            <div class="col-6">
+                <a href="{{ url_for('question.create') }}" class="btn btn-primary btn-sm">질문 등록하기</a>
+            </div>
+            <div class="outside">
+                <table class="table">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>구분</th>
+                            <th>질문</th>
+                            <th>등록일</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% if privacy_list %}
+                        {% for privacy in privacy_list.items %}  <!--현재 페이지 해당 게시물-->
+                            <tr>
+                                {#                            <td>{{ notice.userid.username }}</td>#}
+                                <td>{{ privacy.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">공지사항이 없습니다.</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
