@@ -31,7 +31,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
     Terms_of_Service = db.Column(db.Boolean, nullable=False)
     Privacy_Policy = db.Column(db.Boolean, nullable=False)
-    receive_emails = db.Column(db.Boolean, nullable=True, default=False)
+    receive_emails = db.Column(db.Boolean, nullable=True, default='False')
 
 
 # 공지사항 - FAQ
@@ -69,28 +69,140 @@ class Movie(db.Model):
     genres = db.Column(db.String(200))
     actors = db.Column(db.String(300))
 
-# 극장
+    schedules = db.relationship('Schedule', back_populates='movie', cascade='all, delete-orphan')
+
+# 기존 모델 정의(참고용, 유지보수 편의)
+# class Theater(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(100))
+#     location = db.Column(db.String(200))
+#
+# class Screen(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     theater_id = db.Column(db.Integer, db.ForeignKey('theater.id'))
+#     name = db.Column(db.String(50))   # ex) 1관
+#     total_seats = db.Column(db.Integer)
+#
+# class Schedule(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
+#     screen_id = db.Column(db.Integer, db.ForeignKey('screen.id'))
+#     start_time = db.Column(db.DateTime)
+#     end_time = db.Column(db.DateTime)
+#
+# class Seat(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     screen_id = db.Column(db.Integer, db.ForeignKey('screen.id'))
+#
+#     row = db.Column(db.String(5))   
+#     col = db.Column(db.Integer)     
+#
+# class Reservation(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#     schedule_id = db.Column(db.Integer, db.ForeignKey('schedule.id'))
+#     seat_id = db.Column(db.Integer, db.ForeignKey('seat.id'))
+#     created_at = db.Column(db.DateTime)
+
+# 지역/지점
+class Region(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False, unique=True)
+
+    theaters = db.relationship('Theater', back_populates='region', cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return f'<Region {self.name}>'
+
+
 class Theater(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100))
-    location = db.Column(db.String(200))
+    name = db.Column(db.String(100), nullable=False, unique=True)
+    region_id = db.Column(db.Integer, db.ForeignKey('region.id'), nullable=False)
+    address = db.Column(db.String(200))
 
-# 상영시간
-class Screening(db.Model):
+    region = db.relationship('Region', back_populates='theaters')
+    screens = db.relationship('Screen', back_populates='theater', cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return f'<Theater {self.name}>'
+
+
+class Screen(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'))
-    theater_id = db.Column(db.Integer, db.ForeignKey('theater.id'))
-    start_time = db.Column(db.DateTime)
+    theater_id = db.Column(db.Integer, db.ForeignKey('theater.id'), nullable=False)
+    name = db.Column(db.String(50), nullable=False)   # ex) 1관
+    total_seats = db.Column(db.Integer, nullable=False)
 
-# 좌석
+    theater = db.relationship('Theater', back_populates='screens')
+    schedules = db.relationship('Schedule', back_populates='screen', cascade='all, delete-orphan')
+    seats = db.relationship('Seat', back_populates='screen', cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return f'<Screen {self.theater.name} {self.name}>'
+
+
+class Schedule(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    screen_id = db.Column(db.Integer, db.ForeignKey('screen.id'), nullable=False)
+    start_time = db.Column(db.DateTime, nullable=False)
+    end_time = db.Column(db.DateTime, nullable=False)
+
+    movie = db.relationship('Movie', back_populates='schedules')
+    screen = db.relationship('Screen', back_populates='schedules')
+    reservations = db.relationship('Reservation', back_populates='schedule', cascade='all, delete-orphan')
+
+    __table_args__ = (
+        db.CheckConstraint('end_time > start_time', name='ck_schedule_time'),
+        db.UniqueConstraint('screen_id', 'start_time', name='uq_schedule_screen_start'),
+    )
+
+    def __repr__(self):
+        return f'<Schedule {self.movie.title} {self.screen.name} {self.start_time}>'
+
+
 class Seat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    theater_id = db.Column(db.Integer)
-    seat_number = db.Column(db.String(10))
+    screen_id = db.Column(db.Integer, db.ForeignKey('screen.id'), nullable=False)
+    row = db.Column(db.String(5), nullable=False)
+    col = db.Column(db.Integer, nullable=False)
 
-# 예매
+    screen = db.relationship('Screen', back_populates='seats')
+    reservations = db.relationship('Reservation', back_populates='seat', cascade='all, delete-orphan')
+
+    def __repr__(self):
+        return f'<Seat {self.screen.name} {self.row}{self.col}>'
+
+
 class Reservation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer)
     screening_id = db.Column(db.Integer)
     seat_id = db.Column(db.Integer)
+
+# 1대1 문의 - review __공지사항
+class Privacy(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question = db.Column(db.String(100), nullable=False)
+    info = db.Column(db.String(200), nullable=False)
+    content = db.Column(db.Text(), nullable=False)
+    create_date = db.Column(db.DateTime(), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    # user = db.relationship('User', backref=db.backref('answer_set'))
+    # modify_date = db.Column(db.DateTime(), nullable=True)
+    
+    
+    
+    # 이게 뭐임(확인 필요)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    schedule_id = db.Column(db.Integer, db.ForeignKey('schedule.id'), nullable=False)
+    seat_id = db.Column(db.Integer, db.ForeignKey('seat.id'), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False)
+
+    schedule = db.relationship('Schedule', back_populates='reservations')
+    seat = db.relationship('Seat', back_populates='reservations')
+    user = db.relationship('User', backref=db.backref('reservations', cascade='all, delete-orphan'))
+
+    def __repr__(self):
+        return f'<Reservation {self.user_id} {self.schedule_id}>'

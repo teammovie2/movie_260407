@@ -28,7 +28,7 @@
             <nav>
                 <div class="topnav">
                     <ul>
-                        <li><a href="{{ url_for('film.booking') }}">예 매</a></li>
+                        <li><a href="{{ url_for('film.booking', movie_id=first_movie.id) }}">예 매</a></li>
                         <li><a href="{{ url_for('film.movie_list') }}">영 화</a></li>
                         <li><a href="{{ url_for('film.event') }}">이벤트</a></li>
                         <li><a href="{{ url_for('store.store_main') }}">매 점</a></li>
@@ -53,7 +53,7 @@
                 </ul>
                 <ul>
                     <li class="topnav_reservation">
-                        <a href="{{ url_for('film.booking') }}">바로 예매</a>
+                        <a href="{{ url_for('film.booking', movie_id=first_movie.id) }}">바로 예매</a>
                     </li>
                 </ul>
             </div>
@@ -91,7 +91,7 @@
                         <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.title }}">
 
                         <div class="txtbox">
-                            <a href="{{ url_for('film.booking') }}">예매하기</a>
+                            <a href="{{ url_for('film.booking', movie_id=movie.id) }}">예매하기</a>
                             <a href="/film/movie/{{ movie.tmdb_id }}">상세보기</a>
                         </div>
 
@@ -142,7 +142,7 @@
                 <a href="#"><img src="{{ url_for('static', filename='img/user.png') }}" alt="마이페이지">마이 페이지</a>
             </div>
             <div class="ticket">
-                <a href="{{ url_for('film.booking') }}"><img src="{{ url_for('static', filename='img/ticket.png') }}"
+                <a href="{{ url_for('film.booking', movie_id=first_movie.id) }}"><img src="{{ url_for('static', filename='img/ticket.png') }}"
                         alt="예매">예 매</a>
             </div>
             <div class="store">
@@ -218,6 +218,9 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
 
     <script src="{{ url_for('static', filename='swiper.js') }}"></script>
+    <script>
+        const movieId = "{{ movie_id }}";
+    </script>
 </body>
 
 </html>

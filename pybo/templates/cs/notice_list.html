@@ -6,6 +6,7 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='question_list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='faq.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +26,7 @@
                                href="{{ url_for("cs.notice_list") }}">공지사항</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">1:1문의</a>
+                            <a class="nav-link active" href="{{ url_for("cs.privacy_list") }}">1:1문의</a>
                         </li>
                     </ul>
                 </div>
@@ -36,37 +37,39 @@
     <div class="section1">
         <div class="container">
 
-            <table class="table table">
-                <thead>
-                <tr class="table-secondary">
-                    <th>영화관</th>
-                    <th>제목</th>
-                    <th>등록일</th>
-                </tr>
-
-                </thead>
-
-                <tbody>
-                {% if notice_list %}
-                    {% for notice in notice_list.items %}  <!--현재 페이지 해당 게시물-->
-                        <tr>
-                            <td>{{ notice.theater }}</td>
-                            <td>
-                                <a href="{{ url_for("cs.notice_detail", notice_id=notice.id) }}">{{ notice.title }}</a>
-
-                            </td>
-
-                            {#                            <td>{{ notice.userid.username }}</td>#}
-                            <td>{{ notice.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}</td>
-                        </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="3">공지사항이 없습니다.</td>
+            <div class="outside">
+                <table class="table">
+                    <thead>
+                    <tr class="table-secondary">
+                        <th>영화관</th>
+                        <th>제목</th>
+                        <th>등록일</th>
                     </tr>
-                {% endif %}
-                </tbody>
-            </table>
+
+                    </thead>
+
+                    <tbody>
+                    {% if notice_list %}
+                        {% for notice in notice_list.items %}  <!--현재 페이지 해당 게시물-->
+                            <tr>
+                                <td>{{ notice.theater }}</td>
+                                <td>
+                                    <a href="{{ url_for("cs.notice_detail", notice_id=notice.id) }}">{{ notice.title }}</a>
+
+                                </td>
+
+                                {#                            <td>{{ notice.userid.username }}</td>#}
+                                <td>{{ notice.create_date.strftime('%Y년 %m월 %d일 %p %I:%M') }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">공지사항이 없습니다.</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
 
 
             <!--페이징처리 Start-->
@@ -114,10 +117,6 @@
 
                 </ul>
             </nav>
-            <!--페이징처리 끝-->
-            {#            <a href="{{ url_for('notice.create') }}" class="btn btn-primary">질문 등록하기</a>#}
-
-
         </div>
     </div>
 {% endblock %}

@@ -26,14 +26,19 @@
 }
 
 .section3 .form-select {
-    margin-top: 20px;
+    margin-top: 54px;
 }
+.section3 .container .outside{
+    height: 820px;
+}
+
 .section3 .container .table{
-    width: 1062px; height: 800px;
-    margin: 0 auto;
+
+    width: 1062px;
+
     /*background: #888888;*/
     font-size: 20px;
-    margin-top: 140px;
+    margin-top: 54px;
 }
 
 
@@ -42,8 +47,9 @@
 }
 
 .section3 .container td {
+    height: 70px;
     text-align: center;
     align-content: center;
-    color: #388e3c;
+    color: #333333;
     font-size: 15px;
 }

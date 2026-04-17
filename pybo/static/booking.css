@@ -50,6 +50,9 @@
 
 
 /* 우측 상단 메뉴 */
+.step{
+    height: 1030px;
+}
 .step ul{
     display: flex;
     padding-left: 0;
@@ -88,6 +91,7 @@
 /* 상세옵션 */
 .detailtotal{
     display: flex;
+    height: calc(100vh - 200px);
 }
 
 /* 영화관선택 */
@@ -167,19 +171,30 @@
 }
 
 /* 영화 선택 */
+.movie {
+    width: 353px;
+}
 .movie ul{
     width: 353.17px;
+    max-height: 960px;
     display: flex;
     flex-direction: column;
     list-style: none;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .movie ul > li{
     height: 50px;
     padding: 15px;
     cursor: pointer;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.movie_title{
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 .movie li.selected {
     color: red;
@@ -188,7 +203,10 @@
 
 /* 등급별 색상 */
 .movie_age {
-    display: inline-block;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 22px;
     height: 22px;
     border-radius: 5px;
@@ -248,9 +266,16 @@
 } */
 
 /* 시간선택 */
+.screen_row {
+  display: flex;
+  flex-direction: row;   /* 기본값이지만 명시 */
+  flex-wrap: wrap;    /* 줄 바꿈 허용 */
+  gap: 10px;
+  margin-bottom: 15px;   /* 관 사이 줄 간격 */
+}
 .time ul {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
 }
 .time_btn {

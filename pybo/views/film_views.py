@@ -140,9 +140,11 @@ def movie_info(movie_id):
     movie = Movie.query.filter_by(tmdb_id=movie_id).first()
     return render_template('movie_info/movie_info_1.html', movie=movie)
 
-@bp.route('/booking', methods=['GET','POST'])
-def booking():
-    return render_template('booking.html')
+@bp.route('/booking/<int:movie_id>', methods=['GET','POST'])
+def booking(movie_id):
+    movies = Movie.query.all()
+    movie = Movie.query.filter_by(tmdb_id=movie_id).first()
+    return render_template('booking.html', movie_id=movie_id, movies=movies, movie=movie)
 
 @bp.route('/person/seat', methods=['GET','POST'])
 def person_seat():

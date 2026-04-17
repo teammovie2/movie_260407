@@ -2,7 +2,7 @@
 
 .section2 .container  {
     width: 1206px; height: auto;
-    min-height: 967px;
+    min-height: 1000px;
     padding-left: 0;
     background-color: #eaeaea;
     display: flex;
@@ -41,27 +41,35 @@
     margin-top: 47px;
 
 }
-.section2 .recent_btn{
+.section2 .recent_btn li{
     width: 1004px;
     height: 50px;
-    border-top: 1px solid #cdcdcd;
-    border-bottom: 1px solid #cdcdcd;
+
     font-size: 20px;
     text-align: start;
     display: flex;
     align-items: center;
 }
 
-.section2 .forward_btn{
+.section2 .forward_btn li{
     width: 1004px;
     height: 50px;
-    border-top: 1px solid #cdcdcd;
-    border-bottom: 1px solid #333333;
+
+
     font-size: 20px;
     text-align: start;
     display: flex;
     align-items: center;
-    
+}
+
+.recent_btn li.disabled a,
+.forward_btn li.disabled a {
+    display: block;        /* 🔥 핵심 */
+    width: 100%;           /* 🔥 핵심 */
+    height: 100%;          /* 선택 */
+
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
 }
 .section2 .page-link {
     color: #eeeeee;
