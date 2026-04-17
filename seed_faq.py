@@ -23,6 +23,3 @@ def insert_test_data(n=10):
 
 if __name__ == '__main__':
     insert_test_data()
-
-
-

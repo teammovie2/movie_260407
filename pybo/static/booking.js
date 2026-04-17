@@ -48,49 +48,6 @@ movies.forEach(movie => {
 });
 
 
-// 영화리스트
-const API_KEY = "85a24c607dac1e0d9139a903ee0f509b";
-
-fetch(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=ko-KR&region=KR`)
-  .then(res => res.json())
-  .then(async data => {
-
-    const titleList = document.querySelectorAll(".movie_title");
-
-    // 영화 리스트 반복 (li 개수만큼)
-    for (let i = 0; i < titleList.length; i++) {
-
-      const movie = data.results[i];
-      if (!movie) break;
-
-      // 🔥 한국 관람등급 가져오기
-      const res = await fetch(`https://api.themoviedb.org/3/movie/${movie.id}/release_dates?api_key=${API_KEY}`);
-      const dates = await res.json();
-
-      const kr = dates.results.find(r => r.iso_3166_1 === "KR");
-
-      let age = "ALL";
-
-      if (kr && kr.release_dates.length > 0) {
-        age = kr.release_dates[0].certification || "ALL";
-      }
-
-      let ageClass = "";
-
-      if (age === "19") ageClass = "age-19";
-      else if (age === "15") ageClass = "age-15";
-      else if (age === "12") ageClass = "age-12";
-      else ageClass = "age-all";
-
-      // 값 넣기
-      titleList[i].innerHTML = `
-        <span class="movie_age ${ageClass}">${age}</span>
-        ${movie.title}
-      `;
-    }
-  });
-
-
 // 날짜 자동생성
 const dateList = document.querySelector(".date ul");
 
@@ -176,20 +133,38 @@ function renderTimes(times) {
   const timeList = document.querySelector(".time ul");
   timeList.innerHTML = "";
 
-  times.forEach(time => {
-    const li = document.createElement("li");
+  // 🔥 관 먼저 돌림
+  for (let screen = 1; screen <= 3; screen++) {
 
-    const seats = Math.floor(Math.random() * 60);
+    // 🔥 관별 줄 구분용 div
+    const row = document.createElement("div");
+    row.classList.add("screen_row");
 
-    li.innerHTML = `
-      <button class="time_btn ${seats === 0 ? "disabled" : ""}" ${seats === 0 ? "disabled" : ""}>
-        ${time}
-        <span class="seat">${seats === 0 ? "매진" : `잔여 ${seats}석`}</span>
-      </button>
-    `;
+    times.forEach(time => {
 
-    timeList.appendChild(li);
-  });
+      const li = document.createElement("li");
+
+      const seats = Math.floor(Math.random() * 60);
+
+      li.innerHTML = `
+        <button class="time_btn ${seats === 0 ? "disabled" : ""}"
+                data-time="${time}"
+                data-screen="${screen}"
+                ${seats === 0 ? "disabled" : ""}>
+          
+          ${screen}관 ${time}
+          
+          <span class="seat">
+            ${seats === 0 ? "매진" : `잔여 ${seats}석`}
+          </span>
+        </button>
+      `;
+
+      row.appendChild(li);
+    });
+
+    timeList.appendChild(row); // 🔥 관 단위로 추가
+  }
 }
 
 
@@ -212,5 +187,3 @@ timeListEl.addEventListener("click", (e) => {
 });
 
 renderTimes(generateTimes(8, 24));
-
-

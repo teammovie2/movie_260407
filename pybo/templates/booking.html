@@ -83,23 +83,29 @@
 
         <!-- 영화 -->
         <div class="select_group movie">
-          <ul>
-            <li class="movie_title selected"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
-            <li class="movie_title"></li>
+          <ul id="movieList">
+            {% for movie in movies %}
+            <li class="movie_title {% if movie.id == movie_id %}selected{% endif %}" data-movie-id="{{ movie.id }}">
+
+              <!-- 관람등급 -->
+              <span class="movie_age 
+              {% if movie.certification == '19' %}age-19
+              {% elif movie.certification == '15' %}age-15
+              {% elif movie.certification == '12' %}age-12
+              {% else %}age-all
+              {% endif %}">
+                {% if movie.certification == '정보없음' %}
+                  ALL
+                {% else %}
+                  {{ movie.certification }}
+                {% endif %}
+              </span>
+
+              <!-- 제목 -->
+              {{ movie.title }}
+
+            </li>
+            {% endfor %}
           </ul>
         </div>
 
