@@ -32,3 +32,13 @@ class User(db.Model):
     Terms_of_Service = db.Column(db.Boolean, nullable=False)
     Privacy_Policy = db.Column(db.Boolean, nullable=False)
     receive_emails = db.Column(db.Boolean, nullable=True, default=False)
+
+# 공지사항 - FAQ
+class Faq(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    kind = db.Column(db.String(100), nullable=False)
+    question = db.Column(db.String(200), nullable=False)
+    create_date = db.Column(db.DateTime(), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+    # user = db.relationship('User', backref=db.backref('answer_set'))
+    # modify_date = db.Column(db.DateTime(), nullable=True)

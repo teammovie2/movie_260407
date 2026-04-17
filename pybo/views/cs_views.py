@@ -4,6 +4,7 @@ from idlelib import query
 
 from flask import Blueprint, render_template, request, redirect, url_for
 
+from pybo.models import Faq
 from pybo import db
 from pybo.forms import NoticeForm, AnswerForm
 from pybo.models import Notice, Answer
@@ -32,5 +33,15 @@ def notice_detail(notice_id):
 
 @bp.route("/faq/list")
 def faq_list():
-    # faq = Notice.query.get(notice_id)
-    return render_template("cs/faq/faq.html")
+    faq_list = Faq.query.all()
+    print(faq_list)
+    return render_template("cs/faq/faq.html" , faq_list=faq_list)
+
+# 상세 페이지
+# @bp.route("/faq/detail/<int:faq_id>")
+# def faq_detail(faq_id):
+#     faq = Faq.query.get(faq_id)
+#
+#     return render_template("cs/faq/faq.html", faq=faq)
+
+

@@ -6,6 +6,8 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='question_list.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='faq.css') }}">
+
 {% endblock %}
 
 {% block content %}
@@ -35,14 +37,23 @@
 
     <div class="section3">
         <div class="container">
-            <div id="explain">
 
             <p>
                 <img src="../static/img/info_icon.png" alt="info_icon">
                 자주 찾는 질문 전체가 기본으로 표시됩니다. 원하는 구분의 목록만 보려면 아래 메뉴에서 선택해주세요.
             </p>
-            </div>
-            
+
+
+            <select class="form-select w-25">
+
+                <option selected>전체</option>
+                <option value="1">예매</option>
+                <option value="2">관람권</option>
+                <option value="3">영화관이용</option>
+                <option value="4">멤버쉽</option>
+                <option value="5">할인혜택</option>
+            </select>
+
             <table class="table table">
                 <thead>
                 <tr class="table-secondary">
@@ -52,8 +63,14 @@
 
                 </thead>
                 <tbody>
-                    <td class="table-light">영화관 이용</td>
-                    <td class="table-light">굿즈 증정 기준이 어떻게 되나요?</td>
+
+                {% for faq in faq_list %}
+                    <tr>
+                     <td class="table-light">{{ faq.kind }}</td>
+                     <td class="table-light">{{ faq.question }}</td>
+                    </tr>
+                {% endfor %}
+
                 </tbody>
             </table>
         </div>
