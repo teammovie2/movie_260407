@@ -9,9 +9,9 @@ def event():
 
 # 스토어
 
-@bp.route('/store', methods=['GET'])
-def store():
-    return render_template('store.html')
+# @bp.route('/store', methods=['GET'])
+# def store():
+#     return render_template('store.html')
 
 # 상품페이지
 # 관람권

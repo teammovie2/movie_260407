@@ -31,8 +31,8 @@
                         <li><a href="{{ url_for('film.booking') }}">예 매</a></li>
                         <li><a href="{{ url_for('film.movie_list') }}">영 화</a></li>
                         <li><a href="{{ url_for('film.event') }}">이벤트</a></li>
-                        <li><a href="{{ url_for('film.store') }}">매 점</a></li>
-                        <li><a href="{{ url_for('film.store') }}">굿 즈</a></li>
+                        <li><a href="{{ url_for('store.store_main') }}">매 점</a></li>
+                        <li><a href="{{ url_for('store.store_main') }}">굿 즈</a></li>
                     </ul>
                 </div>
             </nav>
@@ -191,7 +191,7 @@
                 <a href="{{ url_for('film.booking') }}"><img src="{{ url_for('static', filename='img/ticket.png') }}" alt="예매">예 매</a>
             </div>
             <div class="store">
-                <a href="{{ url_for('film.store') }}"><img src="{{ url_for('static', filename='img/store.png') }}" alt="스토어">스토어</a>
+                <a href="{{ url_for('store.store_main') }}"><img src="{{ url_for('static', filename='img/store.png') }}" alt="스토어">스토어</a>
             </div>
             <div class="noticeicon">
                 <a href="{{ url_for('cs.notice_list') }}"><img src="{{ url_for('static', filename='img/notice.png') }}" alt="공지사항">공지사항</a>

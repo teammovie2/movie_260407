@@ -32,3 +32,14 @@ class User(db.Model):
     Terms_of_Service = db.Column(db.Boolean, nullable=False)
     Privacy_Policy = db.Column(db.Boolean, nullable=False)
     receive_emails = db.Column(db.Boolean, nullable=True, default=False)
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    Productname = db.Column(db.String(200), nullable=False)
+    Producttype = db.Column(db.String(50), nullable=False) # 티켓, 스낵음료, 굿즈
+    Productprice = db.Column(db.Integer, nullable=False)
+    stock = db.Column(db.Integer, default=0) #재고
+    Productdescription = db.Column(db.Text) # 구성품
+    Productimage_url = db.Column(db.String(300))
+    Productlimit = db.Column(db.Integer, nullable=False)
+    Productdate = db.Column(db.String(120), nullable=False)
