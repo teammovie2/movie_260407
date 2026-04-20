@@ -15,16 +15,16 @@
             </div>
             <div class="menu_name_main">
                 <div class="product_img">
-                    <img src="{{ url_for('static', filename=product.image) }}">
+                    <img src="{{ order.product.Productimage_url }}">
                 </div>
                 <div class="product_name">
-                    <h3>{{ product.name }}</h3>
+                    <h3>{{ order.product.Productname }}</h3>
                 </div>
                 <div class="product_detail">
-                    <h4>{{ product.detail }}</h4>
+                    <h4>{{ order.product.Productdescription }}</h4>
                 </div>
                 <div class="product_price">
-                    <h2>{{ product.price }}원</h2>
+                    <h2>{{ order.product.Productprice }}원</h2>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <div id="agreement"></div>
                 {# 결제 버튼에 총 결제 금액 표시 #}
                 <button id="payment-button" class="btn btn-primary w-100 py-3 fw-bold mt-3 fs-5">
-                    {{ product.price }}원 결제하기
+                    {{ order.total_price }}원 결제하기
                 </button>
             </div>
         </div>
@@ -50,35 +50,31 @@
 
 <script src="https://js.tosspayments.com/v1/payment-widget"></script>
 <script>
-  // 2. 토스페이먼츠 공용 테스트 클라이언트 키 (회원가입 없이 바로 작동합니다)
-  const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+    const customerKey = "USER_{{ session.get('user_id') }}";
 
-  // 3. 구매자 고유 키 (로그인한 유저의 ID를 사용합니다)
-  const customerKey = "USER_{{ session.get('user_id') }}";
+    const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS);
 
-  const paymentWidget = PaymentWidget(clientKey, PaymentWidget.ANONYMOUS); // 비회원 결제도 가능하도록 ANONYMOUS 사용
+    const orderId = "{{ order.id }}";
+    const amount = {{ order.total_price }};
 
-  // 5. 결제 금액 설정 및 위젯 렌더링
-  const price2 = 10000;
+    // 결제 UI
+    paymentWidget.renderPaymentMethods("#payment-method", { value: amount });
+    paymentWidget.renderAgreement("#agreement");
 
-  paymentWidget.renderPaymentMethods("#payment-method", { value: price2 });
-  paymentWidget.renderAgreement("#agreement");
+    const paymentButton = document.getElementById("payment-button");
 
-  // 6. 결제하기 버튼 클릭 이벤트
-  const paymentButton = document.getElementById("payment-button");
-  paymentButton.addEventListener("click", function () {
+    paymentButton.addEventListener("click", function () {
 
-    // 고유 주문번호 생성 (실제로는 DB에서 생성된 주문번호를 써야 하지만, 테스트를 위해 임의 생성)
-    const generateOrderId = "ORDER_" + new Date().getTime() + "_" + "{{ product.id }}";
+        paymentWidget.requestPayment({
+            orderId: orderId,  // DB 주문 ID 사용
+            orderName: "{{ order.product.Productname }}",
+            amount: amount,    // 총 금액 사용
+            successUrl: window.location.origin + "/store/pay/success?order_id=" + orderId,
+            failUrl: window.location.origin + "/store/pay/fail?order_id=" + orderId
+        });
 
-    // 결제창 호출!
-    paymentWidget.requestPayment({
-      orderId: generateOrderId,
-      orderName: "{{ product.name }}",
-      successUrl: window.location.origin + "/product/pay/success?product={{ product.id }}",
-      failUrl: window.location.origin + "/product/pay/fail"
     });
-  });
 </script>
 
 {% endblock %}

@@ -10,42 +10,6 @@ bp = Blueprint('film', __name__, url_prefix='/film')
 def event():
     return render_template('event.html')
 
-
-# 스토어 결제
-@bp.route('/store/pay', methods=['GET'])
-def store_pay():
-    product_id = request.args.get('product_id', type=int)
-
-    products = {
-        1: {
-            "name": "일반 관람권(2D)",
-            "price": 18000,
-            "image": "img/redticket.png",
-            "detail": "일반 관람권(2D) 1매"
-        },
-
-        2: {
-            "name": "VIP 관람권",
-            "price": 25000,
-            "image": "img/blackticket.png",
-            "detail": "VIP 관람권 1매"
-        },
-
-        3: {
-            "name": "BEST COMBO 교환권",
-            "price": 25000,
-            "image": "img/BEST COMBO 교환권.png",
-            "detail": "반반콤보 or 싱글스낵콤보 중 택1"
-        }
-    }
-
-    product = products.get(product_id)
-
-    if not product:
-        abort(404)
-
-    return render_template('store_pay.html', product=product)
-
 @bp.route('/movie/list', methods=['GET'])
 def movie_list():
     movies = Movie.query.all()
