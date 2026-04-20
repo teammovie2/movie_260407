@@ -41,8 +41,16 @@ def movie_list():
 
 @bp.route('/movie/<int:movie_id>', methods=['GET'])
 def movie_info(movie_id):
-    movie = Movie.query.get(movie_id)
-    return render_template('movie_info/movie_info_1.html', movie=movie)
+    movie = Movie.query.filter_by(tmdb_id=movie_id).first()
+
+    if not movie:
+        abort(404)
+
+    return render_template(
+        'movie_info/movie_info_1.html',
+        movie=movie,
+        movie_id=movie.id 
+    )
 
 @bp.route('/booking/<int:movie_id>', methods=['GET'])
 def booking(movie_id):
@@ -114,6 +122,26 @@ def get_schedules():
 
     return jsonify(result)
 
-@bp.route('/person/seat', methods=['GET','POST'])
+@bp.route('/person/seat', methods=['GET'])
 def person_seat():
-    return render_template('person_seat.html')
+    schedule_id = request.args.get('schedule_id', type=int)
+
+    if not schedule_id:
+        abort(400)
+
+    schedule = Schedule.query.get(schedule_id)
+
+    if not schedule:
+        abort(404)
+
+    movie = schedule.movie
+    screen = schedule.screen
+    theater = screen.theater
+
+    return render_template(
+        'person_seat.html',
+        schedule=schedule,
+        movie=movie,
+        screen=screen,
+        theater=theater
+    )

@@ -24,10 +24,48 @@
     <!-- 01 단계 -->
     <div class="personseat_title">
       <ul>
-        <li>인원/좌석 선택</li>
+        <li>인원/좌석 선택 <span>인원은 최대 8명까지 선택 가능합니다.</span></li>
       </ul>
 
       <div class="persontotal">
+        <div class="selectmovie">
+          <!-- 포스터 -->
+          <div class="poster">
+            <img src="https://image.tmdb.org/t/p/w200{{ movie.poster_path }}" alt="{{ movie.title }} 포스터">
+          </div>
+
+          <!-- 정보 -->
+          <div class="info">
+
+            <!-- 등급 + 제목 -->
+            <div class="title">
+              <span class="age 
+        {% if movie.certification == '19' %}age-19
+        {% elif movie.certification == '15' %}age-15
+        {% elif movie.certification == '12' %}age-12
+        {% else %}age-all
+        {% endif %}">
+                {{ movie.certification if movie.certification != '정보없음' else 'ALL' }}
+              </span>
+
+              <strong>{{ movie.title }}</strong>
+            </div>
+
+            <!-- 날짜 + 시간 -->
+            <div class="datetime">
+              {{ schedule.start_time.strftime("%y.%m.%d (%a)") }}
+              {{ schedule.start_time.strftime("%H:%M") }} ~
+              {{ schedule.end_time.strftime("%H:%M") }}
+            </div>
+
+            <!-- 극장 정보 -->
+            <div class="location">
+              {{ theater.name }} / {{ screen.name }}
+            </div>
+
+          </div>
+        </div>
+
 
         <!-- 02 단계 -->
         <div class="person_num">
@@ -54,10 +92,10 @@
           <div class="basic_num">0</div>
           <button class="plus">+</button>
         </div>
-
       </div>
     </div>
   </div>
+</div>
   {% endblock %}
 
   {% block script %}
@@ -65,5 +103,5 @@
     const movieId = "{{ movie_id }}";
   </script>
 
-  <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/person_seat.js') }}"></script>
   {% endblock %}

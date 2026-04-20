@@ -60,23 +60,70 @@
     margin-bottom: 0;
 }
 .personseat_title > ul li{
+    width: 1480px;
+    height: 68px;
     border: 1px solid #ccc;
     text-align: center;
     padding-top: 20px;
-}
-.personseat_title > ul li{
-    width: 1480px;
-    height: 68px;
-    font-size: 17px;
+    font-size: 18px;
     color: #fff;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #000;
-} 
+}
+.personseat_title > ul li span{
+    display: block;
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 3px;
+}
 
 /* 상세옵션 */
 .persontotal{
     display: flex;
 }
+.selectmovie {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    margin-right: 100px;
+}
+.poster img{
+    width: 55px;
+    height: 82px;
+    margin-right: 10px;
+}
+.age {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    line-height: 22px;
+    margin-right: 6px;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.age-19 {
+    background-color: #d32f2f; /* 빨강 */
+}
+.age-15 {
+    background-color: #f57c00; /* 주황 */
+}
+.age-12 {
+    background-color: #1976d2; /* 파랑 */
+}
+.age-all {
+    background-color: #388e3c; /* 초록 */
+}
+.person_num{
+    display: flex;
+    width: 160px;
+    height: 50px;
+}
+
+
 
 /* 영화관선택 */
 /* .theater_wrap {
