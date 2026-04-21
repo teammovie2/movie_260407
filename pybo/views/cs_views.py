@@ -37,6 +37,32 @@ def notice_detail(notice_id):
     return render_template("cs/notice/notice_detail.html", notice=notice_detail, prev_notice=prev_notice,
                            next_notice=next_notice)
 
+# ===============================
+# 공지사항 등록 (여기에 추가)
+# ===============================
+@bp.route('/notice/create/', methods=('GET', 'POST'))
+def notice_create():
+    form = NoticeForm()
+
+    if request.method == 'POST' and form.validate_on_submit():
+
+        notice = Notice(
+            theater=form.theater.data,
+            title=form.title.data,
+            content=form.content.data,
+            create_date=datetime.now()
+        )
+
+        db.session.add(notice)
+        db.session.commit()
+
+        return redirect(url_for('cs.notice_list'))
+
+    return render_template(
+        'cs/notice/notice_form.html',
+        form=form
+    )
+
 
 @bp.route("/faq/")
 def faq_list():

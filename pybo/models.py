@@ -34,6 +34,7 @@ class User(db.Model):
     receive_emails = db.Column(db.Boolean, nullable=True, default='False')
     status = db.Column(db.String(20), nullable=False, default='normal', server_default='normal')
     is_admin = db.Column(db.Boolean, nullable=False, default=False, server_default='0')
+    admin_role = db.Column(db.String(20),default='none')
 
 
 # 공지사항 - FAQ
