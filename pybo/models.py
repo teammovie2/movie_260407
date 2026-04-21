@@ -204,5 +204,3 @@ class Review(db.Model):
     subject = db.Column(db.String(200), nullable=False)
     content = db.Column(db.Text(), nullable=False)
     image_path = db.Column(db.Text())
-
-
