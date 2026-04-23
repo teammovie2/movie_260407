@@ -67,10 +67,35 @@ def mypage():
             "movie_title": schedule.movie.title,
             "cancel_date": items[0].created_at.strftime("%Y-%m-%d %H:%M")
         })
-
+    payment = Payment.query.join(Order).filter(Order.user_id == user.id).all()
+    
     # 기타 데이터
     orders = Order.query.filter_by(user_id=user.id).all()
-    payment = Payment.query.join(Order).filter(Order.user_id == user.id).all()
+
+    payment = Payment.query\
+        .join(Order)\
+        .filter(
+            Order.user_id == user.id,
+            Payment.status == "SUCCESS"
+        )\
+        .all()
+    
+    cancel_payments = Payment.query\
+        .join(Order)\
+        .filter(
+            Order.user_id == user.id,
+            Payment.status == "CANCELLED"
+        )\
+        .all()
+    
+    cancels = []
+
+    for p in cancel_payments:
+        cancels.append({
+            "type": "payment",
+            "movie_title": p.order.product_name,
+            "cancel_date": p.approved_at.strftime("%Y-%m-%d %H:%M") if p.approved_at else "-"
+        })
 
     return render_template(
         'mypage.html',
@@ -78,9 +103,10 @@ def mypage():
         reservations=reservation_list,
         cancels=cancel_list,
         payment=payment,
-        orders=orders
+        orders=orders,
+        cancels=cancels
     )
-
+    
 @bp.route('/event')
 def event():
     event_images = imgs.query.filter_by(img_type='event').all()
