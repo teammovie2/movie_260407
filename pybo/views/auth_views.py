@@ -50,6 +50,17 @@ def signup():
 def login():
     form = UserLoginForm()
 
+    if request.method == 'POST' and request.form.get('new_password'):
+        user_id = request.form.get('user_id')
+        new_password = request.form.get('new_password')
+
+        user = User.query.get(user_id)
+        user.password = generate_password_hash(new_password)
+        db.session.commit()
+
+        flash('비밀번호가 변경되었습니다.')
+        return redirect(url_for('auth.login'))
+
     if request.method == 'POST' and form.validate_on_submit():
         error = None
         user = User.query.filter_by(userid=form.userid.data).first()
@@ -101,33 +112,15 @@ def find_password():
     user = User.query.filter_by(email=email).first()
 
     if user:
-        return redirect(url_for('auth.reset_password', user_id=user.id))
+        return render_template(
+            'auth/login.html',
+            form=UserLoginForm(),
+            reset_mode=True,
+            reset_user_id=user.id
+        )
     else:
         flash('해당 이메일이 존재하지 않습니다.')
         return redirect(url_for('auth.login'))
-    
-@bp.route('/reset-password/<int:user_id>', methods=['GET', 'POST'])
-def reset_password(user_id):
-    user = User.query.get_or_404(user_id)
-
-    if request.method == 'POST':
-        new_password = request.form.get('new_password')
-
-        if not new_password:
-            flash('비밀번호를 입력해주세요.')
-            return redirect(request.url)
-
-        user.password = generate_password_hash(new_password)
-        db.session.commit()
-
-        flash('비밀번호가 변경되었습니다.')
-        return redirect(url_for('auth.login'))
-
-    form = UserLoginForm()
-    
-    return render_template('auth/login.html', 
-                           form=form,
-                           reset_mode=True)
 
 
 #라우팅 함수보다 먼저 실행
