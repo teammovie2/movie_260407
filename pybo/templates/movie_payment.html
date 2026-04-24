@@ -79,7 +79,7 @@
     const orderCode = "{{ order.order_code }}";
     const totalAmount = {{ order.total_price }};
     const movieTitle = "{{ movie.title }}";
-    const seatCount = {{ seats|length }};
+    const seatCount = {{ seats| length }};
 </script>
 <script>
     const clientKey = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
@@ -102,40 +102,55 @@
 
     paymentButton.addEventListener("click", async function () {
 
-    // 중복 클릭 방지
-    paymentButton.disabled = true;
+        // 중복 클릭 방지
+        paymentButton.disabled = true;
 
-    try {
-        // 서버에 예매 데이터 먼저 저장
-        const res = await fetch("/film/movie/payment", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                schedule_id: {{ schedule.id }},
+        try {
+            // 서버에 예매 데이터 먼저 저장
+            const res = await fetch("/film/movie/payment", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: JSON.stringify({
+                    schedule_id: {{ schedule.id }},
                 seats: {{ seats | tojson }},
-                people: {{ people | tojson }},
-                total_price: {{ total_price }}
+        people: {{ people | tojson }},
+        total_price: {{ total_price }}
             })
         });
 
-        const result = await res.json();
+    if (!res.ok) {
+        const data = await res.json();
 
-        if (!result.success) {
-            alert("예매 데이터 저장 실패");
-            paymentButton.disabled = false;
+        if (data.message === "adult_required") {
+            window.location.href = data.redirect;
             return;
         }
 
-        // 저장 성공 후 결제 요청
-        paymentWidget.requestPayment({
-            orderId: orderId,
-            orderName: "{{ movie.title }} ({{ seats|length }}석)",
-            amount: amount,
-            successUrl: window.location.origin + "/film/payment/success?order_id=" + orderId,
-            failUrl: window.location.origin + "/film/payment/fail?order_id=" + orderId
-        });
+        alert("결제 실패");
+        paymentButton.disabled = false;
+        return;
+    }
+
+    const result = await res.json();
+
+    
+    if (!result.success) {
+        alert("예매 데이터 저장 실패");
+        paymentButton.disabled = false;
+        return;
+    }
+
+    // 저장 성공 후 결제 요청
+    paymentWidget.requestPayment({
+        orderId: orderId,
+        orderName: "{{ movie.title }} ({{ seats|length }}석)",
+        amount: amount,
+        successUrl: window.location.origin + "/film/payment/success?order_id=" + orderId,
+        failUrl: window.location.origin + "/film/payment/fail?order_id=" + orderId
+    });
 
     } catch (err) {
         console.error(err);
