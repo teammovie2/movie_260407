@@ -14,7 +14,7 @@
             <h5 class="my-3 pb-1">로그인</h5>
             <h6 class="pb-3">아이디와 비밀번호를 입력하신 후, 로그인을 눌러주세요.</h6>
 
-            <form method="post" action="{{ url_for('auth.find_id') }}">
+            <form method="post">
                 {{ form.csrf_token }}
                 {% include 'form_errors.html' %}
 
@@ -39,16 +39,14 @@
 
             <div id="find-id-box" style="display:none;" class="mt-5 mb-3">
                 <form method="post" action="{{ url_for('auth.find_id') }}">
-                    <input type="email" name="email" placeholder="이메일로 아이디 찾기"
-                           class="form-control mb-2">
+                    <input type="email" name="email" placeholder="이메일로 아이디 찾기" class="form-control mb-2">
                     <button type="submit" class="btn btn-dark w-100">아이디 찾기</button>
                 </form>
             </div>
 
             <div id="find-pw-box" style="display:none;" class="mt-5 mb-3">
                 <form method="post" action="{{ url_for('auth.find_password') }}">
-                    <input type="email" name="email" placeholder="이메일로 비밀번호 재설정"
-                           class="form-control mb-2">
+                    <input type="email" name="email" placeholder="이메일로 비밀번호 재설정" class="form-control mb-2">
                     <button type="submit" class="btn btn-dark w-100">비밀번호 재설정</button>
                 </form>
             </div>
@@ -59,12 +57,10 @@
                 <h5 class="mb-3">비밀번호 재설정</h5>
 
                 <form method="post" action="{{ url_for('auth.login') }}">
+                    <input type="hidden" name="action" value="reset">
                     <input type="hidden" name="user_id" value="{{ reset_user_id }}">
 
-                    <input type="password"
-                           name="new_password"
-                           placeholder="새 비밀번호"
-                           class="form-control mb-3">
+                    <input type="password" name="new_password" placeholder="새 비밀번호" class="form-control mb-3">
 
                     <button type="submit" class="btn btn-danger w-100">
                         변경하기
@@ -81,18 +77,18 @@
 
 {% block script %}
 <script>
-function showFind(type) {
-    const idBox = document.getElementById('find-id-box');
-    const pwBox = document.getElementById('find-pw-box');
+    function showFind(type) {
+        const idBox = document.getElementById('find-id-box');
+        const pwBox = document.getElementById('find-pw-box');
 
-    idBox.style.display = 'none';
-    pwBox.style.display = 'none';
+        idBox.style.display = 'none';
+        pwBox.style.display = 'none';
 
-    if (type === 'id') {
-        idBox.style.display = 'block';
-    } else if (type === 'pw') {
-        pwBox.style.display = 'block';
+        if (type === 'id') {
+            idBox.style.display = 'block';
+        } else if (type === 'pw') {
+            pwBox.style.display = 'block';
+        }
     }
-}
 </script>
 {% endblock %}

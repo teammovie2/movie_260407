@@ -38,56 +38,53 @@ def signup():
             )
             db.session.add(user)
             db.session.commit()
-
             return redirect(url_for('auth.login'))
 
-    return render_template('auth/signup.html', 
-                           form=form,
-                           reset_mode=True)
-
+    return render_template('auth/signup.html', form=form)
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
     form = UserLoginForm()
 
-    if request.method == 'POST' and request.form.get('new_password'):
-        user_id = request.form.get('user_id')
-        new_password = request.form.get('new_password')
+    if request.method == 'POST':
 
-        user = User.query.get(user_id)
-        user.password = generate_password_hash(new_password)
-        db.session.commit()
+        if request.form.get('action') == 'reset':
+            user_id = request.form.get('user_id')
+            new_password = request.form.get('new_password')
 
-        flash('비밀번호가 변경되었습니다.')
-        return redirect(url_for('auth.login'))
+            user = User.query.get(user_id)
 
-    if request.method == 'POST' and form.validate_on_submit():
-        error = None
-        user = User.query.filter_by(userid=form.userid.data).first()
+            if user and new_password:
+                user.password = generate_password_hash(new_password)
+                db.session.commit()
+                flash('비밀번호가 변경되었습니다.')
+                return redirect(url_for('auth.login'))
 
-        if not user:
-            error = '존재하지 않는 아이디입니다.'
+        elif form.validate_on_submit():
+            user = User.query.filter_by(userid=form.userid.data).first()
 
-        elif not check_password_hash(user.password, form.password.data):
-            error = '비밀번호가 올바르지 않습니다.'
+            if not user:
+                flash('존재하지 않는 아이디입니다.')
+            elif not check_password_hash(user.password, form.password.data):
+                flash('비밀번호가 올바르지 않습니다.')
+            else:
+                session.clear()
+                session['user_id'] = user.id
 
-        if error is None:
-            session.clear()
-            session['user_id'] = user.id
+                if user.status == 'sleep':
+                    return redirect(url_for('auth.sleep_member'))
 
-            # 휴면회원 체크
-            if user.status == 'sleep':
-                return redirect(url_for('auth.sleep_member'))
+                if user.is_admin:
+                    return redirect(url_for('auth.admin'))
 
-            # 관리자
-            if user.is_admin:
-                return redirect(url_for('auth.admin'))
+                return redirect(url_for('main.index'))
 
-            return redirect(url_for('main.index'))
-
-        flash(error)
-
-    return render_template('auth/login.html', form=form)
+    return render_template(
+        'auth/login.html',
+        form=form,
+        reset_mode=False,
+        reset_user_id=None
+    )
 
 @bp.route('/logout')
 def logout():
