@@ -105,8 +105,21 @@ def find_id():
 
 @bp.route('/find-password', methods=['POST'])
 def find_password():
+    userid = request.form.get('userid')
+    username = request.form.get('username')
     email = request.form.get('email')
-    user = User.query.filter_by(email=email).first()
+    phone = request.form.get('phone')
+
+    # 전화번호 하이픈 제거
+    if phone:
+        phone = phone.replace('-', '')
+
+    user = User.query.filter_by(
+        userid=userid,
+        username=username,
+        email=email,
+        phone=phone
+    ).first()
 
     if user:
         return render_template(
@@ -116,7 +129,7 @@ def find_password():
             reset_user_id=user.id
         )
     else:
-        flash('해당 이메일이 존재하지 않습니다.')
+        flash('입력한 정보와 일치하는 계정을 찾을 수 없습니다.')
         return redirect(url_for('auth.login'))
 
 
