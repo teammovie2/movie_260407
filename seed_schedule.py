@@ -77,10 +77,10 @@ def seed_schedules():
     for screen in screens:
         for day_offset in range(DAYS_TO_SEED):
 
-            # 🎯 하루 시작
+            # 하루 시작
             day_start = base_date + timedelta(days=day_offset)
 
-            # 🎯 하루 마감 (다음날 02:30)
+            # 하루 마감 (다음날 02:30)
             day_end = (day_start + timedelta(days=1)).replace(hour=2, minute=30, second=0, microsecond=0)
 
             current_start = day_start
@@ -94,7 +94,7 @@ def seed_schedules():
                 start_time = current_start
                 end_time = start_time + timedelta(minutes=MOVIE_DURATION_MINUTES)
 
-                # 🎯 끝나는 시간이 영업시간 넘으면 종료
+                # 끝나는 시간이 영업시간 넘으면 종료
                 if end_time > day_end:
                     break
 
