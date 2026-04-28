@@ -14,20 +14,33 @@
 <br><br>
 
 ## 개요
-### 목표(소개, 기획의도 등등)
+### 목표
+- 사용자가 실제 영화관처럼 편리하게 예매할 수 있는 서비스를 구현하면서, 실무 수준의 웹 개발 역량을 키우기 위한 프로젝트이다.
 <br>
 
 ### 개발 기간
+- 2026.04.06 ~ 2026.04.29(약 3주간)
 <br>
 
 ### 팀원 소개
-- 강민식
-- 김동환
-- 유영찬
-- 조예연
+- 강민식 : 팀장 및 구상, DB, 프론트엔드, 백엔드
+- 김동환 : DB, 프론트엔드, 백엔드
+- 유영찬 : DB, 프론트엔드, 백엔드
+- 조예연 : DB, 프론트엔드, 백엔드
 <br>
 
-### 개발 환경(html, css 등등)
+### 개발 환경
+<div align=left> 
+    <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+    <img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+    <img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+    <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> 
+    <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"> 
+    <img src="https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white">
+    <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
+    <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+    <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+</div>
 <br><br>
 
 ## 주요기능
