@@ -115,6 +115,10 @@
 * 휴면 계정 로그인 시 휴면 상태 해제 또는 휴면 상태 유지 후 로그아웃이 가능하다.
 <br><br>
 
+## 📑보고서
+[Filmatique.pdf](https://github.com/user-attachments/files/27185085/Filmatique.pdf)
+<br><br>
+
 ## ⚙넣고 싶은 기능
 - 장바구니
 - 리뷰
